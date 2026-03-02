@@ -8,6 +8,10 @@ multi-scenario fallback handling.
 
 ---
 
+## Screenshots
+
+![Query Tab](assets/ragassistangithub.png)
+
 ## Features
 
 - **Flexible ingestion** — `.txt`, `.pdf`, `.md`, `.html` files or entire directories
