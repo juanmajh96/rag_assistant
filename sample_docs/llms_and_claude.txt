@@ -1,0 +1,74 @@
+Large Language Models and Claude
+
+Large Language Models (LLMs)
+
+A large language model (LLM) is a neural network trained on vast amounts of text to
+predict the next token in a sequence. Modern LLMs use the transformer architecture
+and are trained with self-supervised learning on trillions of tokens from the web,
+books, and other corpora.
+
+After pre-training, models are typically fine-tuned using Reinforcement Learning
+from Human Feedback (RLHF) or Constitutional AI (CAI) to make them helpful,
+harmless, and honest.
+
+Key Capabilities of LLMs
+
+- Text generation: write essays, emails, code, creative fiction
+- Summarisation: condense long documents into key points
+- Question answering: answer questions given a context passage
+- Reasoning: solve multi-step logical and mathematical problems
+- Code generation and debugging
+- Translation across dozens of languages
+- Classification and sentiment analysis
+
+Claude (by Anthropic)
+
+Claude is a family of LLMs developed by Anthropic, a safety-focused AI company.
+Claude models are trained using Constitutional AI, a technique that uses a set of
+principles to guide the model toward helpful and harmless behaviour without relying
+solely on human raters for every preference.
+
+Claude Model Families
+
+Claude Haiku
+The fastest and most cost-efficient Claude model. Designed for tasks that require
+quick turnaround: classification, short-form generation, summarisation, and
+evaluation. Claude Haiku (claude-haiku-4-5) is ideal for use as a judge model in
+RAG evaluation pipelines.
+
+Claude Sonnet
+A balance of intelligence and speed. Claude Sonnet (claude-sonnet-4-6) is the
+recommended default for complex question answering, analysis, and code generation.
+It provides GPT-4-class quality at significantly lower cost.
+
+Claude Opus
+The most capable Claude model, optimised for complex reasoning, nuanced writing,
+and difficult coding tasks. Best used when quality is more important than cost or
+latency.
+
+Anthropic API
+
+The Anthropic API follows a messages format. A typical call includes:
+
+- model: the model identifier (e.g. claude-sonnet-4-6)
+- max_tokens: the maximum number of tokens to generate
+- system: an optional system prompt that sets the model's persona and instructions
+- messages: a list of alternating user and assistant turns
+
+The API supports streaming, tool use (function calling), vision (image inputs),
+and prompt caching for repeated context.
+
+Context Windows
+
+Claude models support large context windows. A long context window allows the model
+to reason over entire codebases, books, or legal documents in a single call. In RAG
+systems, a larger context window means more retrieved chunks can be passed to the
+model simultaneously, improving answer quality for complex questions.
+
+Safety and Alignment
+
+Anthropic's mission is the responsible development of AI for the long-term benefit
+of humanity. Claude is designed to refuse harmful requests, acknowledge uncertainty,
+avoid deception, and behave consistently whether or not it thinks it is being tested.
+Constitutional AI (CAI) trains Claude to critique and revise its own outputs against
+a set of principles, reducing the need for human feedback on harmful edge cases.

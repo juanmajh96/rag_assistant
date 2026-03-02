@@ -1,0 +1,63 @@
+Retrieval-Augmented Generation (RAG)
+
+Retrieval-Augmented Generation (RAG) is an AI framework that combines a retrieval
+system with a language model to produce grounded, factual answers. Instead of
+relying solely on the knowledge baked into a model's weights, RAG fetches relevant
+passages from an external document store at query time and feeds them to the model
+as context.
+
+How RAG Works
+
+1. Ingestion: Documents are split into chunks and embedded as dense vectors. These
+   vectors are stored in a vector database such as ChromaDB, Pinecone, or Weaviate.
+
+2. Retrieval: When a user asks a question, the question is embedded using the same
+   model. The vector database performs a nearest-neighbour search to find the chunks
+   most semantically similar to the question.
+
+3. Generation: The retrieved chunks are passed to a language model (e.g. Claude or
+   GPT-4) together with the original question. The model is instructed to answer
+   using only the provided context, which reduces hallucination.
+
+Benefits of RAG
+
+- Up-to-date knowledge: the retrieval corpus can be updated without retraining the
+  model.
+- Source traceability: every claim can be traced back to a specific document chunk.
+- Cost efficiency: smaller models with RAG often outperform larger fine-tuned models
+  on domain-specific tasks.
+- Reduced hallucination: grounding generation in retrieved text keeps answers factual.
+
+Common Use Cases
+
+- Internal knowledge-base Q&A (company wikis, policy docs, HR handbooks)
+- Customer-support automation grounded in product documentation
+- Legal and medical document search and summarisation
+- Research assistants for scientific literature
+- Code documentation assistants
+
+Evaluation of RAG Systems
+
+Evaluating a RAG pipeline requires more than checking whether the final answer is
+correct. Key metrics include:
+
+- Answer Relevance: does the answer address the question?
+- Context Faithfulness: are all claims supported by the retrieved context?
+- Retrieval Precision: are the retrieved chunks actually relevant to the question?
+- Answer Completeness: does the answer cover all aspects of the question?
+
+Modern RAG evaluation often uses an LLM-as-judge approach, where a second model
+scores the output of the first. This removes the need for human-annotated reference
+answers and scales to large evaluation sets.
+
+Fallback Strategies
+
+Production RAG systems must handle failure gracefully:
+
+- Out-of-scope queries: detect when a question falls outside the document domain
+  and redirect rather than hallucinate.
+- No relevant context: if similarity scores are all below a threshold, abstain
+  rather than fabricate an answer.
+- Low-quality generation: re-run the pipeline with an expanded query if the
+  evaluation score is below an acceptable threshold.
+- API errors: retry with exponential backoff, then downgrade to a cheaper model.

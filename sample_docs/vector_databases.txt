@@ -1,0 +1,68 @@
+Vector Databases
+
+A vector database is a specialised data store designed to index and query
+high-dimensional numeric vectors efficiently. It is the backbone of modern semantic
+search and retrieval-augmented generation systems.
+
+What is a Vector?
+
+A vector (also called an embedding) is a list of floating-point numbers produced by
+a machine learning model. Text like "What is the capital of France?" might be
+encoded as a 384-dimensional vector by a sentence-transformer model. Semantically
+similar sentences produce vectors that are close together in the vector space, as
+measured by cosine similarity or dot product.
+
+Popular Vector Databases
+
+ChromaDB
+ChromaDB is an open-source, embedded vector database designed for AI applications.
+It runs in-process (no separate server needed), persists data to disk, and supports
+metadata filtering. It is an excellent choice for local development and small-to-
+medium deployments.
+
+Pinecone
+Pinecone is a managed, cloud-native vector database. It handles scaling, replication,
+and infrastructure automatically. It is suited for production deployments that need
+to query billions of vectors with low latency.
+
+Weaviate
+Weaviate is an open-source vector database that supports hybrid search (combining
+vector similarity with keyword BM25 search). It offers a GraphQL API and can be
+self-hosted or used as a managed cloud service.
+
+pgvector
+pgvector is a PostgreSQL extension that adds a vector column type and ANN
+(approximate nearest-neighbour) indexing. Teams that already run PostgreSQL can add
+semantic search without adopting a new database system.
+
+How Similarity Search Works
+
+The most common distance metric for normalised embeddings is cosine similarity:
+
+  similarity = (A · B) / (|A| * |B|)
+
+A score of 1.0 means the vectors are identical; 0.0 means they are orthogonal
+(completely unrelated). In practice, a threshold of 0.35–0.5 is used to decide
+whether a retrieved chunk is relevant enough to include in the model context.
+
+HNSW Indexing
+
+Most vector databases use Hierarchical Navigable Small World (HNSW) graphs for
+approximate nearest-neighbour search. HNSW builds a multi-layer graph where higher
+layers contain fewer nodes and act as long-range shortcuts. Queries navigate from
+coarse to fine layers, achieving sub-linear search time over millions of vectors
+with minimal accuracy loss.
+
+Chunking Strategy
+
+Before embedding documents, they must be split into chunks. Common strategies:
+
+- Fixed-size chunking: split every N characters with an overlap of M characters.
+  Simple and predictable; the default for most RAG systems.
+- Sentence/paragraph chunking: split on natural boundaries. Produces more coherent
+  chunks but variable sizes.
+- Semantic chunking: split when the topic changes, detected by comparing embeddings
+  of consecutive sentences.
+
+Chunk size affects retrieval quality. Smaller chunks (128–256 tokens) improve
+precision; larger chunks (512–1024 tokens) improve recall of complete ideas.

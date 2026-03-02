@@ -1,0 +1,24 @@
+services:
+  rag:
+    build: .
+    volumes:
+      - ./chroma_db:/app/chroma_db
+      - ./docs:/app/docs
+      - ./sample_docs:/app/sample_docs
+    environment:
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+    # Default: query with QUERY env var (falls back to a demo question)
+    command: >
+      python -m rag_assistant query "${QUERY:-What is retrieval-augmented generation?}"
+
+  ui:
+    build: .
+    ports:
+      - "7860:7860"
+    volumes:
+      - ./chroma_db:/app/chroma_db
+      - ./docs:/app/docs
+      - ./sample_docs:/app/sample_docs
+    environment:
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+    command: python app.py

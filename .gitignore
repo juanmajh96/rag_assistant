@@ -1,0 +1,26 @@
+# Secrets
+.env
+
+# Vector store (persisted locally, not in VCS)
+chroma_db/
+
+# Python
+**/__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+*.egg
+
+# HuggingFace model cache
+.cache/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
