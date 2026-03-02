@@ -272,4 +272,4 @@ throughout) and keep functions small and focused.
 
 ## License
 
-[MIT](LICENSE) — © 2026 [Your Name]
+[MIT](LICENSE) — © 2026 [Juan]
